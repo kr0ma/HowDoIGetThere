@@ -2,11 +2,15 @@ package be.kroma.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.Length;
@@ -17,8 +21,12 @@ import be.kroma.valueobjects.Address;
 
 @Entity
 @Table(name = "users")
+@SecondaryTable(name = "userroles", pkJoinColumns = { @PrimaryKeyJoinColumn(name = "userid") })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@Transient
+	public static final int MAX_LENGTH_PASSWORD = 20;
 	
 	@Id
 	@GeneratedValue
@@ -30,12 +38,9 @@ public class User implements Serializable {
 	private String username;
 	
 	@NotBlank
-	@Length(min = 6, max = 20)
+	@Length(min = 6, max = 255)
 	@SafeHtml
-	private String password;
-	
-	@SuppressWarnings("unused")
-	private boolean active;
+	private String password;	
 	
 	@NotBlank
 	@Length(min = 2, max = 50)
@@ -49,10 +54,16 @@ public class User implements Serializable {
 	
 	@Valid
 	@Embedded
-	private Address address;
+	private Address address;	
+	
+	// finals
+	@Column(table = "userroles")
+	private final int roleid = 2;
+	
+	@SuppressWarnings("unused")
+	private final boolean active = true;
 	
 	public User(){
-		this.active = true;
 	}
 
 	public long getId() {
