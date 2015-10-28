@@ -9,11 +9,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 class IndexController {
 	private static final String VIEW = "index";
+	private static final String LOGIN = "login";
 	
 	@RequestMapping(method = RequestMethod.GET)
 	ModelAndView index(String error) {
-		System.out.println("error"+error);
-		ModelAndView modelAndView = new ModelAndView(VIEW);
+		ModelAndView modelAndView;
+		if (error == null){
+			modelAndView = new ModelAndView(VIEW);
+		} else {
+			modelAndView = new ModelAndView(LOGIN);
+		}		
 		return modelAndView;
 	}
 }

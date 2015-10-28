@@ -4,8 +4,10 @@ import javax.servlet.Filter;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import be.kroma.dao.CreateDAOBeans;
 import be.kroma.datasource.CreateDataSourceBean;
 import be.kroma.security.CreateSecurityFilter;
+import be.kroma.services.CreateServiceBeans;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	@Override
@@ -15,7 +17,7 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] {CreateDataSourceBean.class, CreateSecurityFilter.class };
+		return new Class<?>[] {CreateDAOBeans.class, CreateServiceBeans.class, CreateDataSourceBean.class, CreateSecurityFilter.class };
 	}
 
 	@Override
@@ -25,8 +27,6 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Filter[] getServletFilters() {
-		// CharacterEncodingFilter utf8Filter = new CharacterEncodingFilter();
-		// utf8Filter.setEncoding("UTF-8");
 		return new Filter[] {};
 	}
 }

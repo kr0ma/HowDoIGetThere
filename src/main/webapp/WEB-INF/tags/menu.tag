@@ -55,7 +55,7 @@
 					</div>
 					<security:csrfInput />
 					<button type="submit" class="btn btn-success">Sign in</button>
-					<a href='<c:url value="user/register"/>' class="btn btn-danger">Register</a>				
+					<a href='<c:url value="/user/register"/>' class="btn btn-danger">Register</a>				
 				</form>				
 			</security:authorize>
 			

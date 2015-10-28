@@ -17,11 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CreateSecurityFilter extends WebSecurityConfigurerAdapter {
 
-	private static final String USERS_BY_USERNAME = "select naam as username, paswoord as password, actief as enabled"
-			+ " from gebruikers where naam = ?";
-	private static final String AUTHORITIES_BY_USERNAME = "select gebruikers.naam as username, rollen.naam as authorities"
-			+ " from gebruikers inner join gebruikersrollen" + " on gebruikers.id = gebruikersrollen.gebruikerid"
-			+ " inner join rollen" + " on rollen.id = gebruikersrollen.rolid" + " where gebruikers.naam= ?";
+	private static final String USERS_BY_USERNAME = "select username, password, active as enabled"
+			+ " from users where username = ?";
+	private static final String AUTHORITIES_BY_USERNAME = "select users.username as username, roles.name as authorities"
+			+ " from users inner join userroles" + " on users.id = userroles.userid"
+			+ " inner join roles" + " on roles.id = userroles.roleid" + " where users.username= ?";
 
 	@Autowired
 	private DataSource dataSource;
