@@ -49,8 +49,7 @@ class Rome2RioRouteplannerClient implements RouteplannerClient {
 			Map<String, String> urlVariables = new HashMap<>();{
 				urlVariables.put(ORIGIN, origin);
 				urlVariables.put(DESTINATION, destination);
-			}
-			
+			}			
 			SearchResponse searchResponse = restTemplate.getForObject(uriTemplate, SearchResponse.class, urlVariables);
 			return searchResponse;
 		} catch (Exception ex){
