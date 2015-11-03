@@ -2,6 +2,7 @@
 <%@taglib prefix='v' uri='http://vdab.be/tags'%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 <%@taglib prefix='security' uri='http://www.springframework.org/security/tags'%>
+<%@taglib prefix='spring' uri='http://www.springframework.org/tags'%>
 <!doctype html>
 <html>
 <head>
@@ -17,7 +18,8 @@
         <h2 class="form-signin-heading">Please sign in</h2>
         <c:if test='${param.error != null}'>
 	        <div class="form-group has-error">
-				<div class='help-block'>Verkeerde gebruikersnaam of paswoord.</div>
+				<div class='help-block'><spring:message code="errorUsernamePassword" />
+				</div>
 			</div>
 		</c:if>
         <input type="text" placeholder="Username" class="form-control" name="username" >
