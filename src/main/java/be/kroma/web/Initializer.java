@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import be.kroma.dao.CreateDAOBeans;
 import be.kroma.datasource.CreateDataSourceBean;
+import be.kroma.restclients.CreateRestClientBeans;
 import be.kroma.security.CreateSecurityFilter;
 import be.kroma.services.CreateServiceBeans;
 
@@ -17,7 +18,8 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] {CreateDAOBeans.class, CreateServiceBeans.class, CreateDataSourceBean.class, CreateSecurityFilter.class };
+		return new Class<?>[] { CreateDAOBeans.class, CreateServiceBeans.class, CreateDataSourceBean.class,
+				CreateSecurityFilter.class , CreateRestClientBeans.class};
 	}
 
 	@Override
