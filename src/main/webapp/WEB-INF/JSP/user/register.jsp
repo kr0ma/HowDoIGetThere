@@ -16,8 +16,8 @@
 			</div>
 		</div>
 
-		<div class="container marketing">
-			<div class="row featurette">
+		<div class="jumbotron">
+			<div class="container">
 			<c:url value='/user/register' var='url' />
 			<form:form action='${url}' commandName='user' id='registrationform'
 				cssClass="form-horizontal">

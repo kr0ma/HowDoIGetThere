@@ -4,10 +4,15 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import be.kroma.exceptions.Rome2RioBadRequestException;
+import be.kroma.restclients.RoutePlanning;
 import be.kroma.services.RouteplannerService;
 
 @Controller
@@ -29,10 +34,25 @@ class RouteplannerController {
 	}
 
 	@RequestMapping(path = "search", method = RequestMethod.GET)
-	ModelAndView getRoute(@Valid SearchForm searchForm) {
-		return new ModelAndView(ROUTEPLANNER, "routeplanning",
-				routeplannerService.getRoutePlanning(searchForm.getOrigin(), searchForm.getDestination()))
-						.addObject(new SearchForm());
+	ModelAndView getRoute(@Valid SearchForm searchForm, BindingResult bindingResult) {
+		RoutePlanning routePlanning = null;
+		try {
+			routePlanning = routeplannerService.getRoutePlanning(searchForm.getOrigin(), searchForm.getDestination());
+			return new ModelAndView(ROUTEPLANNER, "routeplanning", routePlanning);
+		} catch (Rome2RioBadRequestException ex){
+			if (ex.getMessage().contains("origin")){
+				bindingResult.rejectValue("origin", "not found", "not found");
+			} else {
+				bindingResult.rejectValue("destination", "not found", "not found");
+			}
+			return new ModelAndView(ROUTEPLANNER);
+		}
+		
+	}
+	
+	@InitBinder("searchForm")
+	void initBinderFiliaal(WebDataBinder binder) {
+		binder.initDirectFieldAccess();
 	}
 
 }

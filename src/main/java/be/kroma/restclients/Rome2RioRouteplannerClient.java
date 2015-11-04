@@ -70,7 +70,7 @@ class Rome2RioRouteplannerClient implements RouteplannerClient {
 		} catch (UnknownHttpStatusCodeException ex) {
 			if (ex.getRawStatusCode() == 444) {
 				logger.log(Level.INFO, "Bad request: " + ex, ex.getResponseBodyAsString());
-				throw new Rome2RioBadRequestException(ex.getResponseBodyAsString());
+				throw new Rome2RioBadRequestException(ex.getStatusText());
 			}
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Something went wrong", ex);

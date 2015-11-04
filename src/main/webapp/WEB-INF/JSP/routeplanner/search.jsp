@@ -21,8 +21,11 @@
 				<c:url value='/route/search' var='url' />		
 				<form:form method="get" commandName="searchForm" id="searchForm" action="${url}">
 					<form:label path="origin">From</form:label>
-					<form:input path="origin" autofocus='autofocus'/>					
+					<form:errors path="origin"/>
+					<form:input path="origin" autofocus='autofocus' />	
+									<c:if test="${not empty origin}"></c:if>
 					<form:label path="destination">To</form:label>
+					<form:errors path="destination"/>
 					<form:input path="destination" autofocus='autofocus'/>
 					<input type='submit' value='Search'/>
 				</form:form>		

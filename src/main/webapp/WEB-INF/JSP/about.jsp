@@ -14,8 +14,8 @@
 			</div>
 		</div>
 
-		<div class="container marketing">
-			<div class="row featurette">
+		<div class="jumbotron">
+			<div class="container">
 				<p class="lead">Small Spring project using Spring security and
 					Restservices</p>
 			</div>

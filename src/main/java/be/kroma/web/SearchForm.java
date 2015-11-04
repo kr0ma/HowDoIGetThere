@@ -2,7 +2,9 @@ package be.kroma.web;
 
 public class SearchForm {
 
+	
 	private String origin;
+	
 	private String destination;
 	
 	public String getOrigin() {
