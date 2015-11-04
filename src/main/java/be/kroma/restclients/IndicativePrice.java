@@ -6,9 +6,18 @@ import javax.xml.bind.annotation.XmlAttribute;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 class IndicativePrice {
-	@XmlAttribute
-	Float price;
 	
 	@XmlAttribute
-	String currency;
+	private Float price;
+	
+	@XmlAttribute
+	private String currency;	
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
 }

@@ -22,3 +22,39 @@ label {
 	margin-top: -2px;
 	margin-bottom: 0;
 }
+
+/*
+darkblue = #1D2F3E
+darkestblue = #152737
+lightblue = #0F9FB4
+green = #0FB493
+lightgreen = #C9E1C1
+
+*/
+
+body {
+	background-color: #C9E1C1; 
+	color: #fff;
+}
+
+.navbar-inverse {
+	background-color: #255252;
+	border-color: #C9E1C1;
+}
+
+.active > a{
+	background-color: #C9E1C1;
+}
+
+.jumbotron{
+	background-color: #255252;
+}
+
+
+.container .marketing {
+	background-color: C9E1C1;
+}
+
+#searchForm > input {
+	color: black;
+}

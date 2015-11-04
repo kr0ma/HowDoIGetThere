@@ -8,8 +8,14 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus.Series;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.UnknownHttpStatusCodeException;
+
+import be.kroma.exceptions.Rome2RioBadRequestException;
 
 @Component
 class Rome2RioRouteplannerClient implements RouteplannerClient {
@@ -31,29 +37,43 @@ class Rome2RioRouteplannerClient implements RouteplannerClient {
 	@Override
 	public List<Route> getRoutes(String origin, String destination) {
 		try {
-			Map<String, String> urlVariables = new HashMap<>();{
+			Map<String, String> urlVariables = new HashMap<>();
+			{
 				urlVariables.put(ORIGIN, origin);
 				urlVariables.put(DESTINATION, destination);
 			}
-			
-			SearchResponse searchResponse = restTemplate.getForObject(uriTemplate, SearchResponse.class, urlVariables);
+
+			RoutePlanning searchResponse = restTemplate.getForObject(uriTemplate, RoutePlanning.class, urlVariables);
 			return searchResponse.getRoutes();
-		} catch (Exception ex){
+		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "no response", ex);
 		}
 		return null;
 	}
-	
-	public SearchResponse getSearchResponse(String origin, String destination){
+
+	public RoutePlanning getRoutePlanning(String origin, String destination) {
 		try {
-			Map<String, String> urlVariables = new HashMap<>();{
+			Map<String, String> urlVariables = new HashMap<>();
+			{
 				urlVariables.put(ORIGIN, origin);
 				urlVariables.put(DESTINATION, destination);
-			}			
-			SearchResponse searchResponse = restTemplate.getForObject(uriTemplate, SearchResponse.class, urlVariables);
+			}
+			RoutePlanning searchResponse = restTemplate.getForObject(uriTemplate, RoutePlanning.class, urlVariables);
 			return searchResponse;
-		} catch (Exception ex){
-			logger.log(Level.SEVERE, "no response", ex);
+		} catch (HttpStatusCodeException ex) {
+			if (ex.getStatusCode() == HttpStatus.BAD_REQUEST) {
+				logger.log(Level.INFO, "Bad request: " + ex, ex.getResponseBodyAsString());
+			}
+			if (ex.getStatusCode().series() == Series.SERVER_ERROR) {
+				logger.log(Level.SEVERE, "Rome2rioserver error: " + ex, ex.getResponseBodyAsString());
+			}
+		} catch (UnknownHttpStatusCodeException ex) {
+			if (ex.getRawStatusCode() == 444) {
+				logger.log(Level.INFO, "Bad request: " + ex, ex.getResponseBodyAsString());
+				throw new Rome2RioBadRequestException(ex.getResponseBodyAsString());
+			}
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Something went wrong", ex);
 		}
 		return null;
 	}

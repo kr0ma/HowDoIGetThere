@@ -6,20 +6,24 @@
 <v:head title="Routeplanner"></v:head>
 </head>
 <body>
-	<v:menu title="home"/>
+	<v:menu title="home" />
 
 	<div class="container">
-
-		<div class="starter-template">
-			<h1>HowDoIGetThere homepage</h1>
-			<p class="lead">
-				some tralala on what you can do here
-			</p>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>Home</h1>
+			</div>
 		</div>
-
+		
+		<div class="jumbotron">
+			<div class="container">
+				<p class="lead">some tralala on what you can do here</p>
+			</div>
+		</div>
+		
 	</div>
 	<!-- /.container -->
 
-	<v:bootstrapFooter/>
+	<v:bootstrapFooter />
 </body>
 </html>

@@ -6,20 +6,24 @@
 <v:head title="Routeplanner"></v:head>
 </head>
 <body>
-	<v:menu title="about"/>
-
+	<v:menu title="about" />
 	<div class="container">
+		<div class="jumbotron">
+			<div class="container">
+				<h1>About</h1>
+			</div>
+		</div>
 
-		<div class="starter-template">
-			<h1>About HowDoIGetThere</h1>
-			<p class="lead">
-				Small Spring project using Spring security and Restservices
-			</p>
+		<div class="container marketing">
+			<div class="row featurette">
+				<p class="lead">Small Spring project using Spring security and
+					Restservices</p>
+			</div>
 		</div>
 
 	</div>
 	<!-- /.container -->
 
-	<v:bootstrapFooter/>
+	<v:bootstrapFooter />
 </body>
 </html>

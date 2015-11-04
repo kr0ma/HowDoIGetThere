@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="SearchResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SearchResponse {
+public class RoutePlanning {
 	@XmlElement(name="Route")
 	private List<Route> routes;
 

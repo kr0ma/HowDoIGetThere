@@ -1,5 +1,7 @@
 package be.kroma.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +23,16 @@ class RouteplannerController {
 		this.routeplannerService = routeplannerService;
 	}
 
-	/*
 	@RequestMapping(method = RequestMethod.GET)
-	String routeplanner() {
-		return ROUTEPLANNER;
+	ModelAndView routeplanner() {
+		return new ModelAndView(ROUTEPLANNER).addObject(new SearchForm());
 	}
-	*/
 
-	@RequestMapping(method = RequestMethod.GET)
-	ModelAndView getRoute() {
-		return new ModelAndView(ROUTEPLANNER).addObject("routes", routeplannerService.getRoutes("Bern", "Zurich"));
+	@RequestMapping(path = "search", method = RequestMethod.GET)
+	ModelAndView getRoute(@Valid SearchForm searchForm) {
+		return new ModelAndView(ROUTEPLANNER, "routeplanning",
+				routeplannerService.getRoutePlanning(searchForm.getOrigin(), searchForm.getDestination()))
+						.addObject(new SearchForm());
 	}
+
 }

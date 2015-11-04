@@ -10,17 +10,26 @@
 	<v:menu title="user" />
 	<div class="container">
 
-		<div class="starter-template">
-			<h1>User registration</h1>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>User registration</h1>
+			</div>
+		</div>
+
+		<div class="container marketing">
+			<div class="row featurette">
 			<c:url value='/user/register' var='url' />
-			<form:form action='${url}' commandName='user' id='registrationform' cssClass="form-horizontal" >
+			<form:form action='${url}' commandName='user' id='registrationform'
+				cssClass="form-horizontal">
 				<jsp:include page="userformfieldsNoValidation.jsp" />
-				<div class="form-group"> 
+				<div class="form-group">
 					<div class="col-sm-offset-5 col-sm-1">
-						<input type='submit' value='Register' id='registerbutton' class="btn btn-primary btn-lg" >
+						<input type='submit' value='Register' id='registerbutton'
+							class="btn btn-primary btn-lg">
 					</div>
 				</div>
 			</form:form>
+			</div>
 		</div>
 	</div>
 	<v:bootstrapFooter />

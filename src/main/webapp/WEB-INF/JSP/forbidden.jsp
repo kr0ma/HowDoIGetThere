@@ -6,19 +6,24 @@
 <v:head title="Routeplanner"></v:head>
 </head>
 <body>
-	<v:menu title="forbidden"/>
+	<v:menu title="forbidden" />
 	<div class="container">
 
-		<div class="starter-template">
-			<h1>No acces</h1>
-			<p class="lead">
-				You do not have clearance to this page, please login
-			</p>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>No acces</h1>
+			</div>
+		</div>
+
+		<div class="container marketing">
+			<div class="row featurette">
+				<p class="lead">You do not have clearance to this page, please login</p>
+			</div>
 		</div>
 
 	</div>
 	<!-- /.container -->
 
-	<v:bootstrapFooter/>
+	<v:bootstrapFooter />
 </body>
 </html>

@@ -12,5 +12,6 @@
 <link rel="stylesheet" href='<c:url value="/bootstrap/css/bootstrap.min.css"/>'>
 
 <!-- Custom styles for this template -->
-<link rel="stylesheet" href='<c:url value="/styles/starter-template.css"/>'>
+<link rel="stylesheet" href='<c:url value="/styles/jumbotron.css"/>'>
+<link rel="stylesheet" href='<c:url value="/styles/carousel.css"/>'>
 <link rel="stylesheet" href='<c:url value="/styles/default.css"/>'>

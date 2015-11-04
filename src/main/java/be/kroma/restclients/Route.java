@@ -3,27 +3,36 @@ package be.kroma.restclients;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-
-import com.sun.xml.txw2.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Route {
-	/*
-	@XmlAttribute
-	String name;
 	
 	@XmlAttribute
-	Float distance;
+	private String name;
 	
 	@XmlAttribute
-	Float duration;
+	private Float distance;
 	
-	IndicativePrice indicativePrice;
-
+	@XmlAttribute
+	private Float duration;
+	
+	@XmlElement(name = "IndicativePrice")
+	private IndicativePrice indicativePrice;
+		
 	public String getName() {
 		return name;
 	}
-	*/
+	public Float getDistance() {
+		return distance;
+	}
+	public Float getDuration() {
+		return duration;
+	}
+	
+	public IndicativePrice getIndicativePrice() {
+		return indicativePrice;
+	}
 	
 	
 }
