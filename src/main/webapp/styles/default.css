@@ -58,3 +58,7 @@ body {
 #searchForm > input {
 	color: black;
 }
+
+.center {
+	text-align: center;
+}

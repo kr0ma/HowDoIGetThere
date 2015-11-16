@@ -27,6 +27,7 @@ public class Rome2RioRouteplannerClientTest {
 	@Before
 	public void before() {		
 		routePlanning = routeplannerClient.getRoutePlanning(ORIGIN, DESTINATION);
+		//routePlanning = routeplannerClient.getRoutePlanning(DESTINATION, ORIGIN);
 	}
 
 	@Test(expected = Rome2RioBadRequestException.class)
@@ -44,6 +45,46 @@ public class Rome2RioRouteplannerClientTest {
 	public void getSearchResponseIsNotNull() {
 		assertNotNull(routePlanning);
 	}
+	
+	// TEST PLACE ELEMENTS FROM RESPONSE
+	
+		// ORIGIN PLACE
+	@Test
+	public void getOriginPlaceIsNotNull(){
+		assertNotNull(routePlanning.getOriginPlace());
+	}		
+	
+	@Test
+	public void getOriginPlacegetNameIsNotNull(){
+		System.out.println(routePlanning.getOriginPlace().getName());
+		assertNotNull(routePlanning.getOriginPlace().getName());
+	}
+	
+	@Test
+	public void getOriginPlacegetKindIsNotNull(){
+		System.out.println(routePlanning.getOriginPlace().getKind());
+		assertNotNull(routePlanning.getOriginPlace().getKind());
+	}	
+	
+		// DESTINATION PLACE
+	
+	@Test
+	public void getDestinationPlaceIsNotNull(){
+		assertNotNull(routePlanning.getDestinationPlace());
+	}
+	
+	@Test
+	public void getDestinationPlacegetNameIsNotNull(){
+		System.out.println(routePlanning.getDestinationPlace().getName());
+		assertNotNull(routePlanning.getDestinationPlace().getName());
+	}
+	
+	@Test
+	public void getDestinationPlacegetKindIsNotNull(){
+		System.out.println(routePlanning.getDestinationPlace().getKind());
+		assertNotNull(routePlanning.getDestinationPlace().getKind());
+	}	
+	
 
 	// TEST ROUTE ELEMENT FROM RESPONSE
 	@Test

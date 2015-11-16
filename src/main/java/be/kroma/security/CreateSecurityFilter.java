@@ -46,7 +46,7 @@ public class CreateSecurityFilter extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().loginProcessingUrl("/login").loginPage("/").and().logout().logoutSuccessUrl("/")
 		.and().authorizeRequests()
-		.antMatchers("/route").authenticated()
+		.antMatchers("/route/**").authenticated()
 		.and().exceptionHandling()
 		.accessDeniedPage("/WEB-INF/JSP/forbidden.jsp");
 	}

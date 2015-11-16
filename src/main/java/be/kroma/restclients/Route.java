@@ -18,7 +18,7 @@ public class Route {
 	private Float duration;
 	
 	@XmlElement(name = "IndicativePrice")
-	private IndicativePrice indicativePrice;
+	private IndicativePrice indicativePrice;	
 		
 	public String getName() {
 		return name;
