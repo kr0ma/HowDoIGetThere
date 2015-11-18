@@ -1,7 +1,6 @@
 package be.kroma.restclients;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,27 +9,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import be.kroma.exceptions.Rome2RioBadRequestException;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = CreateRestClientBeans.class)
 public class Rome2RioRouteplannerClientTest {
 
 	private final String ORIGIN = "Bern";
 	private final String DESTINATION = "Zurich";
+	
+	// SEGMENT VARS
+	private final String SEGMENTORIGIN = "diksmuide";
+	private final String SEGMENTDESTINATION = "engeland";
+	private final int SEGMENTNUMBERCARANDFERRY = 4;
+	private final int SEGMENTNUMBERCAR = 0;
+	private final int SEGMENTNUMBERFERRY = 1;
 
 	@Autowired
 	RouteplannerClient routeplannerClient;
 
 	private RoutePlanning routePlanning;	
+	private RoutePlanning routePlanningSegment;
 
 	@Before
 	public void before() {		
 		routePlanning = routeplannerClient.getRoutePlanning(ORIGIN, DESTINATION);
+		routePlanningSegment = routeplannerClient.getRoutePlanning(SEGMENTORIGIN, SEGMENTDESTINATION);
 		//routePlanning = routeplannerClient.getRoutePlanning(DESTINATION, ORIGIN);
 	}
+	
+	
+	// CARSEGMENT
+	@Test
+	public void getCarSegmentFromRouteIsNotNull(){
+		assertNotNull(routePlanningSegment.getRoutes().get(SEGMENTNUMBERCARANDFERRY).getSegments().get(SEGMENTNUMBERCAR));
+	}
+	
+	@Test
+	public void getVehicleFromCarSegmentFromRouteIsNotNull(){		
+		CarSegment carSegment = (CarSegment) (routePlanningSegment.getRoutes().get(SEGMENTNUMBERCARANDFERRY).getSegments().get(SEGMENTNUMBERCAR));
+		System.out.println(carSegment.getVehicle());
+		assertNotNull(carSegment.getVehicle());
+	}
+	
+	// TRANSITSEGMENT
+	@Test
+	public void getTransitSegmentFromRouteIsNotNull(){
+		assertNotNull(routePlanningSegment.getRoutes().get(SEGMENTNUMBERCARANDFERRY).getSegments().get(SEGMENTNUMBERFERRY));
+	}
+	
+	@Test
+	public void getSubKindFromTransitSegmentFromRouteIsNotNull(){		
+		TransitSegment transitSegment = (TransitSegment) (routePlanningSegment.getRoutes().get(SEGMENTNUMBERCARANDFERRY).getSegments().get(SEGMENTNUMBERFERRY));
+		System.out.println(transitSegment.getSubkind());
+		assertNotNull(transitSegment.getSubkind());
+	}
 
-	@Test(expected = Rome2RioBadRequestException.class)
+	/*@Test(expected = Rome2RioBadRequestException.class)
 	public void getSearchResponseWithBadOriginThrowsRome2RioBadRequestException() {
 		assertNull(routeplannerClient.getRoutePlanning("tddsfs", DESTINATION));
 	}
@@ -123,6 +156,6 @@ public class Rome2RioRouteplannerClientTest {
 	public void getRoute1GetIndicativePriceGetCurrencyIsNotNull() {
 		System.out.println(routePlanning.getRoutes().get(0).getIndicativePrice().getCurrency());
 		assertNotNull(routePlanning.getRoutes().get(0).getIndicativePrice().getCurrency());
-	}
+	}*/
 
 }
