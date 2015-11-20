@@ -54,10 +54,11 @@ public class RoutePlanning {
 	public Set<Route> getRoutes(List<TravelPreference> myPreferences) {
 		Set<Route> prefRoutes = new HashSet<>();
 		Set<TravelPreference> travelpreferencesToExclude = EnumSet.allOf(TravelPreference.class);
-		travelpreferencesToExclude.removeAll(myPreferences);
+		travelpreferencesToExclude.removeAll(myPreferences);		
 		for (Route route : this.routes) {
 			for (TravelPreference myPreference : myPreferences) {
-				if (route.getName().toLowerCase().contains(myPreference.name().toLowerCase())
+				if ((route.getName().toLowerCase().contains(myPreference.name().toLowerCase()) ||
+						route.getName().toLowerCase().equals("walk"))
 						&& !(routeContainsTravelPreferenceToExclude(route, myPreference,
 								travelpreferencesToExclude))) {					
 					prefRoutes.add(route);
@@ -69,11 +70,11 @@ public class RoutePlanning {
 
 	private boolean routeContainsTravelPreferenceToExclude(Route route, TravelPreference myPreference,
 			Set<TravelPreference> preferencesToCheck) {
-		for (TravelPreference preferenceToCheck : preferencesToCheck) {			
-			if (route.getName().toLowerCase().contains(preferenceToCheck.name().toLowerCase())) {				
+		for (TravelPreference preferenceToCheck : preferencesToCheck) {
+			if (route.getName().toLowerCase().contains(preferenceToCheck.name().toLowerCase())) {
 				return true;
-			}			
-		}		
+			}
+		}
 		return false;
 	}
 

@@ -27,7 +27,7 @@ public class Route {
 	
 	@XmlElements({
 		@XmlElement(name="CarSegment", type=CarSegment.class),
-		@XmlElement(name="WalkSegment"),
+		@XmlElement(name="WalkSegment",type=CarSegment.class),
 		@XmlElement(name="TransitSegment", type=TransitSegment.class),
 		@XmlElement(name="FlightSegment", type=FlightSegment.class)
 	})

@@ -37,7 +37,7 @@ abstract class Segment {
 		return distance;
 	}
 	
-	//@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
+	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
 	public Long getDuration() {
 		return duration.longValue();
 	}

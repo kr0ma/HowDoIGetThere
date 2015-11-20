@@ -17,8 +17,8 @@ public class SearchForm {
 	@NotBlank
 	private String destination;
 
-	@Size(min = 1)
-	@NotNull
+	//@Size(min = 1, message="required.searchForm.travelPreferences")
+	@NotNull(message="{required.searchForm.travelPreferences}")
 	private List<TravelPreference> travelPreferences;
 
 	public String getOrigin() {
