@@ -12,15 +12,21 @@
 </head>
 <body>
 	<v:menu title="home" />
+	
 	<div class="container">
+	<!--  
 		<div class="jumbotron">
 			<div class="container">
 				<h1>Sign in</h1>
 			</div>
 		</div>
+	-->
 
 		<div class="jumbotron">
 			<div class="container">
+			<div class="alert alert-success center" role="alert">
+					<h3>Login</h3>
+				</div>
 				<c:url var="loginURL" value="/login" />
 				<form class="form-signin" method="post" action="${loginURL}">
 					<c:if test='${param.error != null}'>

@@ -9,16 +9,19 @@
 <body>
 	<v:menu title="user" />
 	<div class="container">
-
+	<!--  
 		<div class="jumbotron">
 			<div class="container">
 				<h1>User registration</h1>
 			</div>
 		</div>
-
+	-->
 		<div class="jumbotron">
 			<div class="container">
-			<c:url value='/user/register' var='url' />
+				<div class="alert alert-success center" role="alert">
+					<h3>User registration</h3>
+				</div>
+				<c:url value='/user/register' var='url' />
 			<form:form action='${url}' commandName='user' id='registrationform'
 				cssClass="form-horizontal">
 				<jsp:include page="userformfieldsNoValidation.jsp" />

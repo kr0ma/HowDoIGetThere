@@ -64,6 +64,7 @@ public class CreateControllerBeans extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/styles/**").addResourceLocations("/styles/");
 		registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/");
 		registry.addResourceHandler("/bootstrap/**").addResourceLocations("/bootstrap/");
+		registry.addResourceHandler("/icons/**").addResourceLocations("/icons/");
 	}
 
 	@Override

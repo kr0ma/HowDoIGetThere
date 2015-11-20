@@ -1,3 +1,4 @@
+
 form {
 	margin-top: 2em;
 }
@@ -29,12 +30,13 @@ darkestblue = #152737
 lightblue = #0F9FB4
 green = #0FB493
 lightgreen = #C9E1C1
-
 */
+
 
 body {
 	background-color: #C9E1C1; 
 	color: #fff;
+	font-size: 2em;
 }
 
 .navbar-inverse {
@@ -56,9 +58,41 @@ body {
 }
 
 #searchForm > input {
-	color: black;
+	color: #3c763d;
 }
 
 .center {
 	text-align: center;
 }
+
+#searchForm .form-control{
+	font-size: 30px;
+	height: 50px;
+	padding: 30px 20px;
+}
+
+
+
+.btn-info {
+	font-size: 30px;
+	background-color: #dff0d8;
+	border-color: #dff0d8;
+	color: #3c763d;
+}
+
+.icon img{
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-right: 1.5em;
+}
+
+.list-group{
+	margin-left:10px;
+	margin-bottom: 30px;
+}
+
+.item {
+	max-height: 1140px;
+}
+

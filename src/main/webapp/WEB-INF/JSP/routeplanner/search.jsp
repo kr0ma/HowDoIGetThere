@@ -9,51 +9,87 @@
 <body>
 	<v:menu title="routeplanner" />
 	<div class="container">
-
+		<!--  
 		<div class="jumbotron">
 			<div class="container">
 				<h1>Routeplanner</h1>
 			</div>
 		</div>
+		-->
 
 		<div class="jumbotron center">
 			<div class="container">
-				<h2>Find your way of travelling!</h2>
+				<div class="alert alert-success center" role="alert">
+					<h3>Find your way of travelling!</h3>
+				</div>
+
 				<c:url value='/route/search' var='url' />
 				<form:form method="get" commandName="searchForm" id="searchForm"
-					action="${url}">
-					<form:label path="origin">From</form:label>
-					<form:errors path="origin" />
-					<form:input path="origin" autofocus='autofocus' />
-					<form:label path="destination">To</form:label>
-					<form:errors path="destination" />
-					<form:input path="destination" autofocus='autofocus' />
-				<form:label path='travelPreferences'>Way of travel:<form:errors path='travelPreferences'/></form:label>
-				<form:checkboxes items='${travelPreferences}' path='travelPreferences' element='div'/>
-					<input type='submit' value='Search' />
+					action="${url}" cssClass="form-inline">
+					<div class="form-group">
+						<form:input path="origin" autofocus='autofocus'
+							cssClass="form-control" placeholder="From" />
+					</div>
+					<div class="form-group">
+						<form:input path="destination" autofocus='autofocus'
+							cssClass="form-control" placeholder="To" />
+					</div>
+					<input type='submit' value='Search' class="btn btn-info btn-lg" />
+					<div class="form-horizontal">
+						<div class="form-group">
+							<div class="form-inline">
+								<div class="form-group has-error">
+									<form:errors path="origin"
+										element="label class='control-label'" />
+									<form:errors path="destination"
+										element="label class='control-label'" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-horizontal">
+						<div class="form-group">
+							<form:errors path="travelPreferences" />
+							<form:checkboxes items='${travelPreferences}'
+								path='travelPreferences' element="label class='checkbox-inline'" />								
+						</div>
+					</div>
 				</form:form>
 			</div>
 		</div>
 
-		<c:if test="${not empty routeplanning}">		
-			<div class="alert alert-success center" role="alert">				
-				<h2>From ${routeplanning.getOriginPlace().name} to ${routeplanning.getDestinationPlace().name} </h2>
-			</div>			
+		<c:if test="${not empty routeplanning}">
+			<div class="alert alert-success center" role="alert">
+				<h2>From ${routeplanning.getOriginPlace().name} to
+					${routeplanning.getDestinationPlace().name}</h2>
+			</div>
 			<c:forEach items="${routeplanning.routes}" var="route">
 				<div class="jumbotron">
 					<div class="container">
 						<div class="alert alert-success center" role="alert">
-							<h3><strong>${route.name}</strong>(${route.distance}km - <spring:eval expression='route.duration'/>)</h3>							
+							<h3>
+								<strong>${route.name}</strong>(${route.distance}km -
+								<spring:eval expression='route.duration' />
+								)
+							</h3>
 						</div>
-						<ul>
+						<div class="alert alert-success">
 							<c:forEach items="${route.segments}" var="segment">
-								<li>
-									<div><h4>${segment.kind} - ${segment.distance}km - <spring:eval expression='segment.duration'/></h4>
-										<div>${segment.origin} - ${segment.destination}</div>								
+
+								<div class="list-group">
+									<div class="icon">
+										<c:url value="/icons/${segment.kind}.png" var="imgUrl" />
+										<img src="${imgUrl}" />
 									</div>
-								</li>
+
+									<h4 class="list-group-item-heading">${segment.kind}
+										- ${segment.distance}km -
+										<spring:eval expression='segment.duration' />
+									</h4>
+									<p class="list-group-item-text">${segment.origin}-${segment.destination}</p>
+								</div>
 							</c:forEach>
-						</ul>
+						</div>
 					</div>
 				</div>
 			</c:forEach>
