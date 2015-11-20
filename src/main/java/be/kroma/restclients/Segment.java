@@ -39,7 +39,8 @@ abstract class Segment {
 	
 	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
 	public Long getDuration() {
-		return duration.longValue();
+		System.out.println(kind + " " + duration.longValue());
+		return (duration <= 60 ? duration.longValue() : duration.longValue() * 60000 - 3600000);
 	}
 
 	public IndicativePrice getIndicativePrice() {

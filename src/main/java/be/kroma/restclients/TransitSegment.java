@@ -35,7 +35,7 @@ public class TransitSegment extends Segment {
 	@Override
 	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
 	public Long getDuration() {
-		return super.getDuration() * 60000 - 3600000;
+		return super.getDuration();
 	}	
 	
 }

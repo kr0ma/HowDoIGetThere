@@ -34,7 +34,7 @@ public class CarSegment extends Segment{
 	
 	@Override
 	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
-	public Long getDuration() {
-		return super.getDuration() * 60000 - 3600000;
+	public Long getDuration() {		
+		return super.getDuration();
 	}	
 }

@@ -42,7 +42,8 @@ public class Route {
 	
 	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
 	public Long getDuration() {
-		return duration.longValue() * 60000 - 3600000;
+		System.out.println(this.name + " " + duration.longValue());
+		return (duration <= 60 ? duration.longValue() : duration.longValue() * 60000 - 3600000);
 	}
 	
 	public IndicativePrice getIndicativePrice() {
