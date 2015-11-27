@@ -27,20 +27,21 @@
 				<form:form method="get" commandName="searchForm" id="searchForm"
 					action="${url}" cssClass="form-inline">
 					<div class="form-group">
-						<form:input path="origin" autofocus='autofocus'
-							cssClass="form-control" placeholder="From" />
-					</div>
-					<div class="form-group">
-						<form:input path="destination" autofocus='autofocus'
-							cssClass="form-control" placeholder="To" />
-					</div>
-					<input type='submit' value='Search' class="btn btn-info btn-lg" />
-					<div class="form-horizontal">
-						<div class="form-group">
-							<div class="form-inline">
-								<div class="form-group has-error">
+						<div class="form-horizontal col-md-5">
+							<div class="form-group">
+								<form:input path="origin" autofocus='autofocus'
+									cssClass="form-control" placeholder="From" />
+								<div class="has-error">
 									<form:errors path="origin"
 										element="label class='control-label'" />
+								</div>
+							</div>
+						</div>
+						<div class="form-horizontal col-md-5 col-md-offset-2">
+							<div class="form-group">
+								<form:input path="destination" autofocus='autofocus'
+									cssClass="form-control" placeholder="To" />
+								<div class="has-error">
 									<form:errors path="destination"
 										element="label class='control-label'" />
 								</div>
@@ -49,11 +50,16 @@
 					</div>
 					<div class="form-horizontal">
 						<div class="form-group">
-							<form:errors path="travelPreferences" />
 							<form:checkboxes items='${travelPreferences}'
-								path='travelPreferences' element="label class='checkbox-inline'" />								
+								path='travelPreferences' element="span class='checkbox-inline'" />
+							<div class="has-error">
+								<form:errors path="travelPreferences"
+									element="label class='control-label'" />
+							</div>
 						</div>
 					</div>
+					
+					<input type='submit' value='Search' class="btn btn-info btn-lg" />
 				</form:form>
 			</div>
 		</div>

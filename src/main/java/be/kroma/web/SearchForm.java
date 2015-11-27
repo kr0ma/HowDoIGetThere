@@ -3,7 +3,6 @@ package be.kroma.web;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -17,8 +16,7 @@ public class SearchForm {
 	@NotBlank
 	private String destination;
 
-	//@Size(min = 1, message="required.searchForm.travelPreferences")
-	@NotNull(message="{required.searchForm.travelPreferences}")
+	@NotNull(message = "{required.searchForm.travelPreferences}")
 	private List<TravelPreference> travelPreferences;
 
 	public String getOrigin() {

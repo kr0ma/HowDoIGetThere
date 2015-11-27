@@ -24,4 +24,15 @@ class UserServiceImpl implements UserService {
 		user.setId(userDAO.save(user).getId());
 	}
 
+	@Override
+	public User findByUsername(String username) {
+		return userDAO.findByUsername(username);
+	}
+
+	@Override
+	@ModifyingTransactionalServiceMethod
+	public void save(User user) {
+		userDAO.save(user);		
+	}
+
 }

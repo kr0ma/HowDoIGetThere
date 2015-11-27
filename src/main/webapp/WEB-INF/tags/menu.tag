@@ -31,7 +31,7 @@
 						aria-expanded="false"><security:authentication property="name" />
 							<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Preferences</a></li>
+							<li><a href='<c:url value ="/user/preferences/userdetails"/>'>Preferences</a></li>
 							<li role="separator" class="divider"></li>
 							<li><form method='post' action='<c:url value="/logout"/>' id='logoutform'>
 									<input type='submit' value='Log off' id='logoutbutton' class="btn btn-link">
@@ -45,13 +45,17 @@
 			<security:authorize access='isAnonymous()'>
 				<c:url var="loginURL" value="/login"/> 
 				<form class="navbar-form navbar-right" method="post" action="${loginURL}"> 
-					<div class="form-group">
+					<div class="form-group has-feedback">
+					<label class="control-label sr-only"></label>
 						<input type="text" placeholder="Username" class="form-control"
 							name="username">
+							<span class="glyphicon glyphicon-user form-control-feedback"></span>
 					</div>
-					<div class="form-group">
+					<div class="form-group has-feedback">
+						<label class="control-label sr-only"></label>
 						<input type="password" placeholder="Password" class="form-control"
 							name="password">
+						<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 					</div>
 					<security:csrfInput />
 					<button type="submit" class="btn btn-success">Sign in</button>

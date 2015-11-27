@@ -80,6 +80,11 @@ body {
 	color: #3c763d;
 }
 
+.btn-info:hover{
+	background-color: #9EB8B3;
+	border-color: #9EB8B3;
+}
+
 .icon img{
 	width: 60px;
 	height: 60px;
@@ -95,4 +100,65 @@ body {
 .item {
 	max-height: 1140px;
 }
+
+.has-error .form-control-feedback {
+	color: #DCBE52;
+}
+
+.form-inline .has-feedback .form-control-feedback{
+	left: 23px;
+}
+
+.checkbox-inline input[type=checkbox] {
+	top: 11px;
+}
+
+#registrationform .form-group > div:first-of-type {
+	margin-top: 7px;
+}
+
+#registrationform .form-group > #postcodeError {
+	margin-top: 7px;
+}
+
+#preferencesform{
+	margin-top: 0em;
+}
+
+.dropdown-menu{
+	background-color: #255252;
+}
+
+.dropdown-menu>li>a, #logoutbutton{
+	color: #fff;
+	font-size: 1.5em;
+}
+
+.sidebar a{
+	background-color: #C9E1C1;
+	color: #4C8177;
+}
+
+.sidebar .active > a{
+	background-color: #A3CB96;
+}
+
+.sidebar > .nav > li > a:hover {
+	background-color: #9EB8B3;
+}
+/*
+darkblue = #1D2F3E
+darkestblue = #152737
+lightblue = #0F9FB4
+green = #0FB493
+lightgreen = #C9E1C1
+*/
+
+.has-feedback label.sr-only~.form-control-feedback{
+	color: #A9A9A9;
+	top:2px;
+}
+
+
+
 

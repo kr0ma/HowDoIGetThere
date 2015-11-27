@@ -52,9 +52,9 @@ class RouteplannerController {
 					EnumSet.allOf(TravelPreference.class));
 		} catch (Rome2RioBadRequestException ex) {
 			if (ex.getMessage().contains("origin")) {
-				bindingResult.rejectValue("origin", "not found", "not found");
+				bindingResult.rejectValue("origin", "errorPlaceNotFound", "not found");
 			} else {
-				bindingResult.rejectValue("destination", "not found", "not found");
+				bindingResult.rejectValue("destination", "errorPlaceNotFound", "not found");
 			}
 			return new ModelAndView(ROUTEPLANNER).addObject("travelPreferences", EnumSet.allOf(TravelPreference.class));
 		}

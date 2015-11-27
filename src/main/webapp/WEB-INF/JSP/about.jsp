@@ -24,19 +24,17 @@
 					Restservices</p>
 				<p>Icons</p>
 				<p>
-
-
-					<ul>
+				<ul>
 					<li>walker by Alexander Wiefel from the Noun Project</li>
 					<li>Train by Stephen McKamey from the Noun Project</li>
 					<li>Airplane by Dilon Choudhury from the Noun Project</li>
 				</ul>
-				
+
 			</div>
 		</div>
 
 	</div>
 	<!-- /.container -->
-<v:bootstrapFooter /></
-				body>
+	<v:bootstrapFooter />
+</body>
 </html>

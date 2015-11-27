@@ -24,7 +24,7 @@
 				<c:url value='/user/register' var='url' />
 			<form:form action='${url}' commandName='user' id='registrationform'
 				cssClass="form-horizontal">
-				<jsp:include page="userformfieldsNoValidation.jsp" />
+				<jsp:include page="userformfields.jsp" />
 				<div class="form-group">
 					<div class="col-sm-offset-5 col-sm-1">
 						<input type='submit' value='Register' id='registerbutton'

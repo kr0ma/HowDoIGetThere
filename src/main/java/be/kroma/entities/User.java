@@ -12,6 +12,7 @@ import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,47 +24,53 @@ import be.kroma.valueobjects.Address;
 @Table(name = "users")
 @SecondaryTable(name = "userroles", pkJoinColumns = { @PrimaryKeyJoinColumn(name = "userid") })
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
+
+	public interface UserDetails extends Default {
+	}
+
+	public interface SearchPreferences {
+	}
+
 	@Transient
 	public static final int MAX_LENGTH_PASSWORD = 20;
-	
+
 	@Id
 	@GeneratedValue
 	private long id;
-	
+
 	@NotBlank
-	@Length(min = 3, max = 50)
-	@SafeHtml
+	@Length(min = 3, max = 50, groups = UserDetails.class)
+	@SafeHtml(groups = UserDetails.class)
 	private String username;
-	
-	@NotBlank
-	@Length(min = 6, max = 255)
-	@SafeHtml
-	private String password;	
-	
-	@NotBlank
-	@Length(min = 2, max = 50)
-	@SafeHtml
+
+	@NotBlank(groups = UserDetails.class)
+	@Length(min = 6, max = 255, groups = UserDetails.class)
+	@SafeHtml(groups = UserDetails.class)
+	private String password;
+
+	@NotBlank(groups = UserDetails.class)
+	@Length(min = 2, max = 50, groups = UserDetails.class)
+	@SafeHtml(groups = UserDetails.class)
 	private String name;
-	
-	@NotBlank
-	@Length(min = 2, max = 50)
-	@SafeHtml
+
+	@NotBlank(groups = UserDetails.class)
+	@Length(min = 2, max = 50, groups = UserDetails.class)
+	@SafeHtml(groups = UserDetails.class)
 	private String surname;
-	
+
 	@Valid
 	@Embedded
-	private Address address;	
-	
+	private Address address;
+
 	// finals
 	@Column(table = "userroles")
 	private final int roleid = 2;
-	
+
 	@SuppressWarnings("unused")
 	private final boolean active = true;
-	
-	public User(){
+
+	public User() {
 	}
 
 	public long getId() {
@@ -114,5 +121,4 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
-	
 }
