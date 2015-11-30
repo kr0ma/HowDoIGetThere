@@ -42,8 +42,16 @@
 					</div>
 					<div class="form-horizontal">
 						<div class="form-group">
-							<form:checkboxes items='${travelPreferences}'
-								path='travelPreferences' element="span class='checkbox-inline'" />							
+							<!--<form:checkboxes items='${travelPreferences}'
+								path='travelPreferences' element="span class='checkbox-inline'" />-->
+							<c:forEach items="${travelPreferences}" var="travelPreference">
+								<div class="has-feedback checkbox-inline">
+									<form:checkbox path="travelPreferences"
+										value="${travelPreference}" label="${travelPreference}" />
+									<c:url value="/icons/${travelPreference.toString()}.png" var="imgUrl" />
+									<img alt="${travelPreference}" src="${imgUrl}" class="glyphicon form-control-feedback glyph-right">
+								</div>
+							</c:forEach>
 							<div class="has-error">
 								<form:errors path="travelPreferences"
 									element="label class='control-label'" />
