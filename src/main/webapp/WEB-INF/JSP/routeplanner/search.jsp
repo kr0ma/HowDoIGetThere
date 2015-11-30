@@ -22,7 +22,7 @@
 						<div class="form-horizontal col-md-5">
 							<div class="form-group">
 								<form:input path="origin" autofocus='autofocus'
-									cssClass="form-control" placeholder="From" />
+									cssClass="form-control" placeholder="From" required='required'/>
 								<div class="has-error">
 									<form:errors path="origin"
 										element="label class='control-label'" />
@@ -32,7 +32,7 @@
 						<div class="form-horizontal col-md-5 col-md-offset-2">
 							<div class="form-group">
 								<form:input path="destination" autofocus='autofocus'
-									cssClass="form-control" placeholder="To" />
+									cssClass="form-control" placeholder="To" required='required'/>
 								<div class="has-error">
 									<form:errors path="destination"
 										element="label class='control-label'" />

@@ -1,5 +1,6 @@
 <%@page contentType='text/html' pageEncoding='UTF-8' session='false'%>
 <%@taglib prefix='v' uri='http://vdab.be/tags'%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 <!doctype html>
 <html>
 <head>
@@ -29,11 +30,14 @@
 					<li>Train by Stephen McKamey from the Noun Project</li>
 					<li>Airplane by Dilon Choudhury from the Noun Project</li>
 				</ul>
-
 			</div>
-		</div>
-
+		</div>		
 	</div>
+	<div class="row">
+		<c:url value="/images/uml/howdoigetthere.png" var="imgUrl" />
+		<img alt="UML-diagram" src="${imgUrl}" id="uml" class="col-md-8 col-md-offset-2">
+	</div>
+	
 	<!-- /.container -->
 	<v:bootstrapFooter />
 </body>
