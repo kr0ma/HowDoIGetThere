@@ -161,15 +161,18 @@ lightgreen = #C9E1C1
 
 .form-horizontal .checkbox-inline {
 	margin-left: 40px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .form-inline .has-feedback .glyph-right{
-	left: 15px;
+	left: 20px;
 	top: 5px;
+	background-color: #E2E2E2;
 }
 
 .checkbox-inline label  {
-	margin-left: 30px;
+	margin-left: 40px;
 }
 
 
