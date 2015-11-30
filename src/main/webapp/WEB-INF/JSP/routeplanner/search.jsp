@@ -43,25 +43,29 @@
 					<div class="form-horizontal">
 						<div class="form-group">
 							<form:checkboxes items='${travelPreferences}'
-								path='travelPreferences' element="span class='checkbox-inline'" />
+								path='travelPreferences' element="span class='checkbox-inline'" />							
 							<div class="has-error">
 								<form:errors path="travelPreferences"
 									element="label class='control-label'" />
 							</div>
 						</div>
 					</div>
-					
+
 					<input type='submit' value='Search' class="btn btn-info btn-lg" />
 				</form:form>
 			</div>
 		</div>
-		<c:if test="${(empty routeplanning or empty routeplanning.routes) and not empty param.origin and not empty param.destination and not empty param.travelPreferences}">
+		<c:if
+			test="${(empty routeplanning or empty routeplanning.routes) and not empty param.origin and not empty param.destination and not empty param.travelPreferences}">
 			<div class="alert alert-info center" role="alert">
-				<h2><spring:message code="NoRoutesFound" /></h2>
+				<h2>
+					<spring:message code="NoRoutesFound" />
+				</h2>
 			</div>
 		</c:if>
 
-		<c:if test="${not empty routeplanning and not empty routeplanning.routes}">
+		<c:if
+			test="${not empty routeplanning and not empty routeplanning.routes}">
 			<div class="alert alert-success center" role="alert">
 				<h2>From ${routeplanning.getOriginPlace().name} to
 					${routeplanning.getDestinationPlace().name}</h2>

@@ -1,5 +1,6 @@
 package be.kroma.enums;
 
 public enum TravelPreference {
-	DRIVE, TRAIN, BUS, FLY;		
+	DRIVE, TRAIN, BUS, FLY;
+	
 }
