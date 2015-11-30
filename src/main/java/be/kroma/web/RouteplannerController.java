@@ -57,6 +57,8 @@ class RouteplannerController {
 				bindingResult.rejectValue("destination", "errorPlaceNotFound", "not found");
 			}
 			return new ModelAndView(ROUTEPLANNER).addObject("travelPreferences", EnumSet.allOf(TravelPreference.class));
+		} catch (NullPointerException ex){			
+			return new ModelAndView(ROUTEPLANNER).addObject("travelPreferences", EnumSet.allOf(TravelPreference.class));
 		}
 
 	}

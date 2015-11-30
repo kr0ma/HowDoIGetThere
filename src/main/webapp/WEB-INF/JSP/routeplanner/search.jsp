@@ -9,14 +9,6 @@
 <body>
 	<v:menu title="routeplanner" />
 	<div class="container">
-		<!--  
-		<div class="jumbotron">
-			<div class="container">
-				<h1>Routeplanner</h1>
-			</div>
-		</div>
-		-->
-
 		<div class="jumbotron center">
 			<div class="container">
 				<div class="alert alert-success center" role="alert">
@@ -63,8 +55,13 @@
 				</form:form>
 			</div>
 		</div>
+		<c:if test="${(empty routeplanning or empty routeplanning.routes) and not empty param.origin and not empty param.destination and not empty param.travelPreferences}">
+			<div class="alert alert-info center" role="alert">
+				<h2><spring:message code="NoRoutesFound" /></h2>
+			</div>
+		</c:if>
 
-		<c:if test="${not empty routeplanning}">
+		<c:if test="${not empty routeplanning and not empty routeplanning.routes}">
 			<div class="alert alert-success center" role="alert">
 				<h2>From ${routeplanning.getOriginPlace().name} to
 					${routeplanning.getDestinationPlace().name}</h2>

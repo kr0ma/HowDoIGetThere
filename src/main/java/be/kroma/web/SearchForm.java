@@ -5,15 +5,18 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import be.kroma.enums.TravelPreference;
 
 public class SearchForm {
 
 	@NotBlank
+	@SafeHtml
 	private String origin;
 
 	@NotBlank
+	@SafeHtml
 	private String destination;
 
 	@NotNull(message = "{required.searchForm.travelPreferences}")

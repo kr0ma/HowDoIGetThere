@@ -31,9 +31,9 @@ class UserController {
 	private static final String USER = "user";
 	private static final String REGISTER = USER + "/register";
 
-	private static final String PREFERENCES = USER + "/preferences";
-	private static final String USERDETAILS = PREFERENCES + "/userdetailsPref";
-	private static final String SEARCH = PREFERENCES + "/searchPref";
+	private static final String CONTROLPANEL = USER + "/controlpanel";
+	private static final String USERDETAILS = CONTROLPANEL + "/usercontactinfo";
+	private static final String SEARCH = CONTROLPANEL + "/searchPref";
 
 	private static final String REDIRECT_URL_AFTER_CREATE = "redirect:/";
 
@@ -57,21 +57,21 @@ class UserController {
 
 	// USER PREFERENCES
 
-	@RequestMapping(path = "/preferences/userdetails", method = RequestMethod.GET)
-	ModelAndView userDetailsPreferences(Principal principal) {		
+	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.GET)
+	ModelAndView userContactInfo(Principal principal) {
 		return new ModelAndView(USERDETAILS, "user", userService.findByUsername(principal.getName()));
 	}
 
-	@RequestMapping(path = "/preferences/userdetails", method = RequestMethod.POST)
-	String userDetailsPreferences(@Validated({ User.UserDetails.class }) User user, BindingResult bindingResult) {
+	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.POST)
+	String userContactInfo(@Validated({ User.UserDetails.class }) User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return USERDETAILS;
-		}	
-		userService.save(user);		
+		}
+		userService.save(user);
 		return USERDETAILS;
 	}
 
-	@RequestMapping(path = "/preferences/search", method = RequestMethod.GET)
+	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.GET)
 	ModelAndView searchPreferences() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
@@ -107,7 +107,7 @@ class UserController {
 			// login
 			UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
 			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails,
-					unencryptedUserPassword, userDetails.getAuthorities());			
+					unencryptedUserPassword, userDetails.getAuthorities());
 			authManager.authenticate(auth);
 
 			// auth succesfull -> store auth in session

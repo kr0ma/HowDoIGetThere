@@ -12,27 +12,23 @@
 		<div class="jumbotron">
 			<div class="container">
 				<div class="alert alert-success center" role="alert">
-					<h3>User preferences</h3>
+					<h3>Control panel</h3>
 				</div>
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-3 sidebar">
 							<ul class="nav nav-sidebar">
 								<li class="active"><a
-									href='<c:url value ="/user/preferences/userdetails"/>'>Userdetails
+									href='<c:url value ="/user/controlpanel/userdetails"/>'>Userdetails
 										<span class="sr-only">(current)</span>
 								</a></li>
-								<li><a href='<c:url value ="/user/preferences/search"/>'>SearchPreferences</a></li>
+								<li><a href='<c:url value ="/user/controlpanel/search"/>'>SearchPreferences</a></li>
 							</ul>
 						</div>
 						<div class="col-md-9 main">
-							<!-- <c:url value='/user/preferences/userdetails' var='url' />
-								action='${url}'
-							 -->
-
 							<form:form commandName='user' id='preferencesform'
 								cssClass="form-horizontal">
-								<jsp:include page="userdetailsForm.jsp" />
+								<jsp:include page="usercontactinfoForm.jsp" />
 								<div class="form-group">
 
 									<input type='submit' value='Save' id='savebutton'

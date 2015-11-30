@@ -12,15 +12,15 @@
 		<div class="jumbotron">
 			<div class="container">
 				<div class="alert alert-success center" role="alert">
-					<h3>User preferences</h3>
+					<h3>Control panel</h3>
 				</div>
 				<div class="container">
 					<div class="row">
 						<div class="col-md-3 sidebar">
 							<ul class="nav nav-sidebar">
-								<li><a href='<c:url value ="/user/preferences/userdetails"/>'>Userdetails <span
+								<li><a href='<c:url value ="/user/controlpanel/userdetails"/>'>Userdetails <span
 										class="sr-only">(current)</span></a></li>								
-								<li class="active"><a href='<c:url value ="/user/preferences/search"/>'>SearchPreferences</a></li>								
+								<li class="active"><a href='<c:url value ="/user/controlpanel/search"/>'>SearchPreferences</a></li>								
 							</ul>							
 						</div>
 						<div class="col-md-9 main">						

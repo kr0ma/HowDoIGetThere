@@ -31,7 +31,7 @@
 						aria-expanded="false"><security:authentication property="name" />
 							<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href='<c:url value ="/user/preferences/userdetails"/>'>Preferences</a></li>
+							<li><a href='<c:url value ="/user/controlpanel/userdetails"/>'>Control panel</a></li>
 							<li role="separator" class="divider"></li>
 							<li><form method='post' action='<c:url value="/logout"/>' id='logoutform'>
 									<input type='submit' value='Log off' id='logoutbutton' class="btn btn-link">
