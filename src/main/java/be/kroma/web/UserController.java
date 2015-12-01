@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -70,7 +71,7 @@ class UserController {
 	}
 
 	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.POST)
-	String userContactInfo(@Validated({ User.UserDetails.class }) User user, BindingResult bindingResult) {
+	String userContactInfo(@ModelAttribute @Validated({ User.UserDetails.class }) User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return USERDETAILS;
 		}
@@ -80,20 +81,18 @@ class UserController {
 		
 		// SEARCHPREFERENCES
 	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.GET)
-	ModelAndView searchPreferences(Principal principal) {		
-		User user = userService.findByUsernameWithPreferences(principal.getName());		
-		return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class)).addObject(new SearchPreferenceForm(user.getSearchPreferences()));
+	ModelAndView searchPreferences(Principal principal, @ModelAttribute("user") User loggedInUser) {			
+		return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class)).addObject(new SearchPreferenceForm(loggedInUser.getSearchPreferences()));
 	}
 	
 	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.POST)
-	ModelAndView SearchPreferences(@Valid SearchPreferenceForm searchPreferenceForm, BindingResult bindingResult, Principal principal){
+	ModelAndView SearchPreferences(@Valid SearchPreferenceForm searchPreferenceForm, BindingResult bindingResult, @ModelAttribute("user") User loggedInUser){
 		if (bindingResult.hasErrors()) {
 			return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class));
-		}
-		User user = userService.findByUsername(principal.getName());
-		user.setSearchPreferences(searchPreferenceForm.getTravelPreferences());
-		userService.save(user);
-		return new ModelAndView(REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES); // TODO redirect
+		}		
+		loggedInUser.setSearchPreferences(searchPreferenceForm.getTravelPreferences());
+		userService.save(loggedInUser);
+		return new ModelAndView(REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES);
 	}
 
 	// END USER PREFERENCES

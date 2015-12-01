@@ -38,7 +38,7 @@ class RouteplannerController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	ModelAndView routeplanner(Principal principal) {
-		User user = userService.findByUsernameWithPreferences(principal.getName());
+		User user = userService.findWithPreferences(principal.getName());
 		return new ModelAndView(ROUTEPLANNER).addObject(new SearchForm(user.getSearchPreferences())).addObject("travelPreferences",
 				EnumSet.allOf(TravelPreference.class));
 	}

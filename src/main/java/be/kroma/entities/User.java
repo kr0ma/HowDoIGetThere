@@ -2,6 +2,7 @@ package be.kroma.entities;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -11,6 +12,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -81,11 +83,11 @@ public class User implements Serializable {
 	@SuppressWarnings("unused")
 	private final boolean active = true;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "usersearchpreferences", joinColumns = @JoinColumn(name = "userid"))
 	@Column(name = "searchPreference")
 	@Enumerated(EnumType.STRING)
-	private Set<TravelPreference> searchPreferences; 
+	private Set<TravelPreference> searchPreferences = new HashSet<>(); 
 	
 	public User() {
 	}
