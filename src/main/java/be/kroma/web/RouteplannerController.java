@@ -1,5 +1,6 @@
 package be.kroma.web;
 
+import java.security.Principal;
 import java.util.EnumSet;
 
 import javax.validation.Valid;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import be.kroma.entities.User;
 import be.kroma.enums.TravelPreference;
 import be.kroma.exceptions.Rome2RioBadRequestException;
 import be.kroma.restclients.RoutePlanning;
 import be.kroma.services.RouteplannerService;
+import be.kroma.services.UserService;
 
 @Controller
 @RequestMapping("/route")
@@ -25,15 +28,18 @@ class RouteplannerController {
 	private static final String ROUTEPLANNER = "routeplanner/search";
 
 	private final RouteplannerService routeplannerService;
+	private final UserService userService;
 
 	@Autowired
-	public RouteplannerController(RouteplannerService routeplannerService) {
+	public RouteplannerController(RouteplannerService routeplannerService, UserService userService) {
 		this.routeplannerService = routeplannerService;
+		this.userService = userService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	ModelAndView routeplanner() {
-		return new ModelAndView(ROUTEPLANNER).addObject(new SearchForm()).addObject("travelPreferences",
+	ModelAndView routeplanner(Principal principal) {
+		User user = userService.findByUsernameWithPreferences(principal.getName());
+		return new ModelAndView(ROUTEPLANNER).addObject(new SearchForm(user.getSearchPreferences())).addObject("travelPreferences",
 				EnumSet.allOf(TravelPreference.class));
 	}
 

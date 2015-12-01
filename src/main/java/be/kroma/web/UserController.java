@@ -1,12 +1,14 @@
 package be.kroma.web;
 
 import java.security.Principal;
+import java.util.EnumSet;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import be.kroma.entities.User;
+import be.kroma.enums.TravelPreference;
 import be.kroma.services.UserService;
 
 @Controller
@@ -36,6 +39,10 @@ class UserController {
 	private static final String SEARCH = CONTROLPANEL + "/searchPref";
 
 	private static final String REDIRECT_URL_AFTER_CREATE = "redirect:/";
+	
+	private static final String REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL = "redirect:/user/controlpanel";
+	private static final String REDIRECT_URL_AFTER_UPDATE_USER_DETAILS = REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL + "/userdetails";
+	private static final String REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES = REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL + "/search";
 
 	private final UserService userService;
 
@@ -56,7 +63,7 @@ class UserController {
 	}
 
 	// USER PREFERENCES
-
+		//USER DETAILS
 	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.GET)
 	ModelAndView userContactInfo(Principal principal) {
 		return new ModelAndView(USERDETAILS, "user", userService.findByUsername(principal.getName()));
@@ -68,14 +75,25 @@ class UserController {
 			return USERDETAILS;
 		}
 		userService.save(user);
-		return USERDETAILS;
+		return REDIRECT_URL_AFTER_UPDATE_USER_DETAILS;
 	}
-
+		
+		// SEARCHPREFERENCES
 	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.GET)
-	ModelAndView searchPreferences() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = auth.getName();
-		return new ModelAndView(SEARCH, "user", userService.findByUsername(username));
+	ModelAndView searchPreferences(Principal principal) {		
+		User user = userService.findByUsernameWithPreferences(principal.getName());		
+		return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class)).addObject(new SearchPreferenceForm(user.getSearchPreferences()));
+	}
+	
+	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.POST)
+	ModelAndView SearchPreferences(@Valid SearchPreferenceForm searchPreferenceForm, BindingResult bindingResult, Principal principal){
+		if (bindingResult.hasErrors()) {
+			return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class));
+		}
+		User user = userService.findByUsername(principal.getName());
+		user.setSearchPreferences(searchPreferenceForm.getTravelPreferences());
+		userService.save(user);
+		return new ModelAndView(REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES); // TODO redirect
 	}
 
 	// END USER PREFERENCES
@@ -122,7 +140,12 @@ class UserController {
 	}
 
 	@InitBinder("user")
-	void initBinderFiliaal(WebDataBinder binder) {
+	void initBinderUser(WebDataBinder binder) {
+		binder.initDirectFieldAccess();
+	}
+	
+	@InitBinder("searchPreferenceForm")
+	void initBinderSearchPreferenceForm(WebDataBinder binder){
 		binder.initDirectFieldAccess();
 	}
 }

@@ -1,12 +1,21 @@
 package be.kroma.entities;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
@@ -18,11 +27,13 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 
+import be.kroma.enums.TravelPreference;
 import be.kroma.valueobjects.Address;
 
 @Entity
 @Table(name = "users")
 @SecondaryTable(name = "userroles", pkJoinColumns = { @PrimaryKeyJoinColumn(name = "userid") })
+@NamedEntityGraph(name = "User.WithPreferences", attributeNodes= @NamedAttributeNode("searchPreferences"))
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;	
 
@@ -69,7 +80,13 @@ public class User implements Serializable {
 
 	@SuppressWarnings("unused")
 	private final boolean active = true;
-
+	
+	@ElementCollection
+	@CollectionTable(name = "usersearchpreferences", joinColumns = @JoinColumn(name = "userid"))
+	@Column(name = "searchPreference")
+	@Enumerated(EnumType.STRING)
+	private Set<TravelPreference> searchPreferences; 
+	
 	public User() {
 	}
 
@@ -119,6 +136,14 @@ public class User implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Set<TravelPreference> getSearchPreferences() {
+		return Collections.unmodifiableSet(searchPreferences);
+	}
+
+	public void setSearchPreferences(Set<TravelPreference> searchPreferences) {
+		this.searchPreferences = searchPreferences;
 	}
 
 }

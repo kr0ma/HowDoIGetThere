@@ -1,6 +1,8 @@
 package be.kroma.web;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,7 +11,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 import be.kroma.enums.TravelPreference;
 
-public class SearchForm {
+class SearchForm {
 
 	@NotBlank
 	@SafeHtml
@@ -20,7 +22,14 @@ public class SearchForm {
 	private String destination;
 
 	@NotNull(message = "{required.searchForm.travelPreferences}")
-	private List<TravelPreference> travelPreferences;
+	private Set<TravelPreference> travelPreferences = new HashSet<>();
+
+	SearchForm() {
+	}
+
+	SearchForm(Collection<TravelPreference> preferences) {
+		travelPreferences.addAll(preferences);
+	}
 
 	public String getOrigin() {
 		return origin;
@@ -38,11 +47,11 @@ public class SearchForm {
 		this.destination = destination;
 	}
 
-	public List<TravelPreference> getTravelPreferences() {
+	public Set<TravelPreference> getTravelPreferences() {
 		return travelPreferences;
 	}
 
-	public void setTravelPreferences(List<TravelPreference> travelPreferences) {
+	public void setTravelPreferences(Set<TravelPreference> travelPreferences) {
 		this.travelPreferences = travelPreferences;
 	}
 

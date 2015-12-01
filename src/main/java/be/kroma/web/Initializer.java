@@ -2,6 +2,7 @@ package be.kroma.web;
 
 import javax.servlet.Filter;
 
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import be.kroma.dao.CreateDAOBeans;
@@ -29,6 +30,6 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Filter[] getServletFilters() {
-		return new Filter[] {};
+		return new Filter[] {new OpenEntityManagerInViewFilter()};
 	}
 }

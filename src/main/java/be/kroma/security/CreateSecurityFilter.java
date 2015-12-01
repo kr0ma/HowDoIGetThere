@@ -47,7 +47,7 @@ public class CreateSecurityFilter extends WebSecurityConfigurerAdapter {
 		http.formLogin().loginProcessingUrl("/login").loginPage("/").and().logout().logoutSuccessUrl("/")
 		.and().authorizeRequests()
 		.antMatchers("/route/**").authenticated()
-		.antMatchers("/user/preferences/**").authenticated()
+		.antMatchers("/user/controlpanel/**").authenticated()
 		.and().exceptionHandling()
 		.accessDeniedPage("/WEB-INF/JSP/forbidden.jsp");
 	}

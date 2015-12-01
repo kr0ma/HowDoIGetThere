@@ -35,4 +35,9 @@ class UserServiceImpl implements UserService {
 		userDAO.save(user);		
 	}
 
+	@Override
+	public User findByUsernameWithPreferences(String username) {
+		return userDAO.findWithPreferences(username);
+	}
+
 }

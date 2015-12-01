@@ -1,6 +1,7 @@
 package be.kroma.restclients;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +52,7 @@ public class RoutePlanning {
 		this.routes.addAll(routes);
 	}
 
-	public Set<Route> getRoutes(List<TravelPreference> myPreferences) {
+	public Set<Route> getRoutes(Collection<TravelPreference> myPreferences) {
 		Set<Route> prefRoutes = new HashSet<>();
 		Set<TravelPreference> travelpreferencesToExclude = EnumSet.allOf(TravelPreference.class);
 		travelpreferencesToExclude.removeAll(myPreferences);		

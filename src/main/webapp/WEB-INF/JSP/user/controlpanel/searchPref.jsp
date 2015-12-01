@@ -18,15 +18,34 @@
 					<div class="row">
 						<div class="col-md-3 sidebar">
 							<ul class="nav nav-sidebar">
-								<li><a href='<c:url value ="/user/controlpanel/userdetails"/>'>Userdetails <span
-										class="sr-only">(current)</span></a></li>								
-								<li class="active"><a href='<c:url value ="/user/controlpanel/search"/>'>SearchPreferences</a></li>								
-							</ul>							
+								<li><a
+									href='<c:url value ="/user/controlpanel/userdetails"/>'>Userdetails
+										<span class="sr-only">(current)</span>
+								</a></li>
+								<li class="active"><a
+									href='<c:url value ="/user/controlpanel/search"/>'>SearchPreferences</a></li>
+							</ul>
 						</div>
-						<div class="col-md-9 main">						
-							<form:form  commandName='user' id='preferencesform' cssClass="form-horizontal">
-								TODO
-								
+						<div class="col-md-9 main">
+							<form:form commandName='searchPreferenceForm'
+								cssClass="form-horizontal">
+
+								<div class="form-group">
+									<c:forEach items="${travelPreferences}" var="travelPreference">
+										<div class="has-feedback">
+											<form:checkbox path="travelPreferences"
+												value="${travelPreference}" label="${travelPreference}" />
+										</div>
+									</c:forEach>
+									<div class="has-error">
+										<form:errors path="travelPreferences"
+											element="label class='control-label'" />
+									</div>
+								</div>
+								<div class="form-group">
+									<input type='submit' value='Save' id='savebutton'
+										class="btn btn-primary btn-lg btn-block">
+								</div>
 							</form:form>
 						</div>
 					</div>
