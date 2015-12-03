@@ -38,12 +38,17 @@ class UserController {
 	private static final String CONTROLPANEL = USER + "/controlpanel";
 	private static final String USERDETAILS = CONTROLPANEL + "/usercontactinfo";
 	private static final String SEARCH = CONTROLPANEL + "/searchPref";
+	private static final String CHANGEPASSWORD = CONTROLPANEL + "/changepassword";
 
 	private static final String REDIRECT_URL_AFTER_CREATE = "redirect:/";
-	
+
 	private static final String REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL = "redirect:/user/controlpanel";
-	private static final String REDIRECT_URL_AFTER_UPDATE_USER_DETAILS = REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL + "/userdetails";
-	private static final String REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES = REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL + "/search";
+	private static final String REDIRECT_URL_AFTER_UPDATE_USER_DETAILS = REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL
+			+ "/userdetails";
+	private static final String REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES = REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL
+			+ "/search";
+	private static final String REDIRECT_URL_AFTER_UPDATE_PASSWORD = REDIRECT_URL_AFTER_UPDATE_CONTROL_PANEL
+			+ "/password";
 
 	private final UserService userService;
 
@@ -64,37 +69,56 @@ class UserController {
 	}
 
 	// USER PREFERENCES
-		//USER DETAILS
+	// USER DETAILS
 	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.GET)
 	ModelAndView userContactInfo(Principal principal) {
 		return new ModelAndView(USERDETAILS, "user", userService.findByUsername(principal.getName()));
 	}
 
 	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.POST)
-	String userContactInfo(@ModelAttribute @Validated({ User.UserDetails.class }) User user, BindingResult bindingResult) {
+	String userContactInfo(@ModelAttribute @Validated({ User.UserDetails.class }) User user,
+			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return USERDETAILS;
 		}
 		userService.save(user);
 		return REDIRECT_URL_AFTER_UPDATE_USER_DETAILS;
 	}
-		
-		// SEARCHPREFERENCES
+
+	// SEARCHPREFERENCES
 	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.GET)
-	ModelAndView searchPreferences(Principal principal, @ModelAttribute("user") User loggedInUser) {			
-		return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class)).addObject(new SearchPreferenceForm(loggedInUser.getSearchPreferences()));
+	ModelAndView searchPreferences(Principal principal, @ModelAttribute("user") User loggedInUser) {
+		return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class))
+				.addObject(new SearchPreferenceForm(loggedInUser.getSearchPreferences()));
 	}
-	
+
 	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.POST)
-	ModelAndView SearchPreferences(@Valid SearchPreferenceForm searchPreferenceForm, BindingResult bindingResult, @ModelAttribute("user") User loggedInUser){
+	ModelAndView searchPreferences(@Valid SearchPreferenceForm searchPreferenceForm, BindingResult bindingResult,
+			@ModelAttribute("user") User loggedInUser) {
 		if (bindingResult.hasErrors()) {
 			return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class));
-		}		
+		}
 		loggedInUser.setSearchPreferences(searchPreferenceForm.getTravelPreferences());
 		userService.save(loggedInUser);
 		return new ModelAndView(REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES);
 	}
 
+	// CHANGE PASSWORD
+	@RequestMapping(path = "/controlpanel/password", method = RequestMethod.GET)
+	ModelAndView changePassword() {
+		return new ModelAndView(CHANGEPASSWORD).addObject("changePasswordForm", new ChangePasswordForm());
+	}
+
+	@RequestMapping(path = "/controlpanel/password", method = RequestMethod.POST)
+	String changePassword(@Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult,
+			@ModelAttribute("user") User loggedInUser) {
+		if (bindingResult.hasErrors()) {
+			return CHANGEPASSWORD;
+		}
+		loggedInUser.setPassword(changePasswordForm.getNewPassword());
+		userService.savePassword(loggedInUser);
+		return REDIRECT_URL_AFTER_UPDATE_PASSWORD;
+	}
 	// END USER PREFERENCES
 
 	@RequestMapping(path = "/register", method = RequestMethod.POST)
@@ -142,9 +166,14 @@ class UserController {
 	void initBinderUser(WebDataBinder binder) {
 		binder.initDirectFieldAccess();
 	}
-	
+
 	@InitBinder("searchPreferenceForm")
-	void initBinderSearchPreferenceForm(WebDataBinder binder){
+	void initBinderSearchPreferenceForm(WebDataBinder binder) {
+		binder.initDirectFieldAccess();
+	}
+
+	@InitBinder("changePasswordForm")
+	void initBinderChangePasswordForm(WebDataBinder binder) {
 		binder.initDirectFieldAccess();
 	}
 }

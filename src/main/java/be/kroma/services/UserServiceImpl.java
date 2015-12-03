@@ -19,8 +19,7 @@ class UserServiceImpl implements UserService {
 	@Override
 	@ModifyingTransactionalServiceMethod	
 	public void create(User user) {
-		String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-		user.setPassword(encryptedPassword);
+		encryptPassword(user);
 		user.setId(userDAO.save(user).getId());
 	}
 
@@ -31,13 +30,25 @@ class UserServiceImpl implements UserService {
 
 	@Override
 	@ModifyingTransactionalServiceMethod
+	public void savePassword(User user) {
+		encryptPassword(user);
+		save(user);
+	}
+	
+	@Override
+	@ModifyingTransactionalServiceMethod
 	public void save(User user) {
 		userDAO.save(user);		
-	}
+	}	
 
 	@Override
 	public User findWithPreferences(String username) {
 		return userDAO.findWithPreferences(username);
+	}	
+	
+	private void encryptPassword(User user){
+		String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+		user.setPassword(encryptedPassword);
 	}
 
 }

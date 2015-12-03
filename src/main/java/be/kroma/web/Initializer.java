@@ -20,7 +20,7 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class<?>[] { CreateDAOBeans.class, CreateServiceBeans.class, CreateDataSourceBean.class,
-				CreateSecurityFilter.class , CreateRestClientBeans.class};
+				CreateSecurityFilter.class, CreateRestClientBeans.class };
 	}
 
 	@Override
@@ -30,6 +30,6 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Filter[] getServletFilters() {
-		return new Filter[] {new OpenEntityManagerInViewFilter()};
+		return new Filter[] { new OpenEntityManagerInViewFilter() };
 	}
 }

@@ -21,7 +21,7 @@ class SearchForm {
 	@SafeHtml
 	private String destination;
 
-	@NotNull(message = "{required.searchForm.travelPreferences}")
+	@NotNull(message = "{required.travelPreferences}")
 	private Set<TravelPreference> travelPreferences = new HashSet<>();
 
 	SearchForm() {

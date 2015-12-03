@@ -10,4 +10,5 @@ public interface UserService {
 	@EntityGraph("User.WithPreferences")
 	User findWithPreferences(String username);
 	void save(User user);
+	void savePassword(User user);
 }

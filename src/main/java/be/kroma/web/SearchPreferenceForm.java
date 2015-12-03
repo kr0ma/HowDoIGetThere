@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import be.kroma.enums.TravelPreference;
 
 class SearchPreferenceForm {
-	@NotNull
+	@NotNull(message = "{required.travelPreferences}")
 	private Set<TravelPreference> travelPreferences = new HashSet<>();
 	
 	SearchPreferenceForm() {

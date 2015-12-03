@@ -24,6 +24,8 @@
 								</a></li>
 								<li class="active"><a
 									href='<c:url value ="/user/controlpanel/search"/>'>SearchPreferences</a></li>
+								<li><a
+									href='<c:url value ="/user/controlpanel/password"/>'>Change password</a></li>
 							</ul>
 						</div>
 						<div class="col-md-9 main">
