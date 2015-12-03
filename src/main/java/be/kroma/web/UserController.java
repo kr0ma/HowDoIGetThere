@@ -62,64 +62,12 @@ class UserController {
 		this.authManager = authManager;
 		this.userDetailsService = userDetailsService;
 	}
-
+	
 	@RequestMapping(path = "/register", method = RequestMethod.GET)
 	ModelAndView registrationForm() {
 		return new ModelAndView(REGISTER, "user", new User());
 	}
-
-	// USER PREFERENCES
-	// USER DETAILS
-	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.GET)
-	ModelAndView userContactInfo(Principal principal) {
-		return new ModelAndView(USERDETAILS, "user", userService.findByUsername(principal.getName()));
-	}
-
-	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.POST)
-	String userContactInfo(@ModelAttribute @Validated({ User.UserDetails.class }) User user,
-			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return USERDETAILS;
-		}
-		userService.save(user);
-		return REDIRECT_URL_AFTER_UPDATE_USER_DETAILS;
-	}
-
-	// SEARCHPREFERENCES
-	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.GET)
-	ModelAndView searchPreferences(Principal principal, @ModelAttribute("user") User loggedInUser) {
-		return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class))
-				.addObject(new SearchPreferenceForm(loggedInUser.getSearchPreferences()));
-	}
-
-	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.POST)
-	ModelAndView searchPreferences(@Valid SearchPreferenceForm searchPreferenceForm, BindingResult bindingResult,
-			@ModelAttribute("user") User loggedInUser) {
-		if (bindingResult.hasErrors()) {
-			return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class));
-		}
-		loggedInUser.setSearchPreferences(searchPreferenceForm.getTravelPreferences());
-		userService.save(loggedInUser);
-		return new ModelAndView(REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES);
-	}
-
-	// CHANGE PASSWORD
-	@RequestMapping(path = "/controlpanel/password", method = RequestMethod.GET)
-	ModelAndView changePassword() {
-		return new ModelAndView(CHANGEPASSWORD).addObject("changePasswordForm", new ChangePasswordForm());
-	}
-
-	@RequestMapping(path = "/controlpanel/password", method = RequestMethod.POST)
-	String changePassword(@Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult,
-			@ModelAttribute("user") User loggedInUser) {
-		if (bindingResult.hasErrors()) {
-			return CHANGEPASSWORD;
-		}
-		loggedInUser.setPassword(changePasswordForm.getNewPassword());
-		userService.savePassword(loggedInUser);
-		return REDIRECT_URL_AFTER_UPDATE_PASSWORD;
-	}
-	// END USER PREFERENCES
+	
 
 	@RequestMapping(path = "/register", method = RequestMethod.POST)
 	String create(@Validated({ User.UserDetails.class }) User user, BindingResult bindingResult) {
@@ -161,6 +109,60 @@ class UserController {
 		return REDIRECT_URL_AFTER_CREATE;
 
 	}
+
+	// USER PREFERENCES
+		// USER DETAILS
+	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.GET)
+	ModelAndView userContactInfo(Principal principal) {
+		return new ModelAndView(USERDETAILS, "user", userService.findByUsername(principal.getName()));
+	}
+
+	@RequestMapping(path = "/controlpanel/userdetails", method = RequestMethod.POST)
+	String userContactInfo(@ModelAttribute @Validated({ User.UserDetails.class }) User user,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return USERDETAILS;
+		}
+		userService.save(user);
+		return REDIRECT_URL_AFTER_UPDATE_USER_DETAILS;
+	}
+
+	// SEARCHPREFERENCES
+	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.GET)
+	ModelAndView searchPreferences(Principal principal) {
+		return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class))
+				.addObject(new SearchPreferenceForm(userService.findByUsername(principal.getName()).getSearchPreferences()));
+	}
+
+	@RequestMapping(path = "/controlpanel/search", method = RequestMethod.POST)
+	ModelAndView searchPreferences(@Valid SearchPreferenceForm searchPreferenceForm, BindingResult bindingResult, Principal principal) {
+		if (bindingResult.hasErrors()) {
+			return new ModelAndView(SEARCH, "travelPreferences", EnumSet.allOf(TravelPreference.class));
+		}
+		User user = userService.findByUsername(principal.getName());
+		user.setSearchPreferences(searchPreferenceForm.getTravelPreferences());
+		userService.save(user);
+		return new ModelAndView(REDIRECT_URL_AFTER_UPDATE_TRAVEL_PREFERENCES);
+	}
+
+	// CHANGE PASSWORD
+	@RequestMapping(path = "/controlpanel/password", method = RequestMethod.GET)
+	ModelAndView changePassword() {
+		return new ModelAndView(CHANGEPASSWORD).addObject("changePasswordForm", new ChangePasswordForm());
+	}
+
+	@RequestMapping(path = "/controlpanel/password", method = RequestMethod.POST)
+	String changePassword(@Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult, Principal principal) {
+		if (bindingResult.hasErrors()) {
+			return CHANGEPASSWORD;
+		}
+		User user = userService.findByUsername(principal.getName());
+		user.setPassword(changePasswordForm.getNewPassword());
+		userService.savePassword(user);
+		return REDIRECT_URL_AFTER_UPDATE_PASSWORD;
+	}
+	// END USER PREFERENCES
+
 
 	@InitBinder("user")
 	void initBinderUser(WebDataBinder binder) {

@@ -14,8 +14,6 @@ public class NewPasswordEqualsConfirmPasswordValidator implements ConstraintVali
 
 	@Override
 	public boolean isValid(ChangePasswordForm changePasswordForm, ConstraintValidatorContext context) {
-		System.out.println(changePasswordForm.getNewPassword());
-		System.out.println(changePasswordForm.getConfirmNewPassword());
 		return changePasswordForm.getNewPassword().equals(changePasswordForm.getConfirmNewPassword());
 	}
 

@@ -10,7 +10,7 @@ import be.kroma.restclients.RoutePlanning;
 import be.kroma.restclients.RouteplannerClient;
 
 @Service
-public class RouteplannerServiceImpl implements RouteplannerService{
+class RouteplannerServiceImpl implements RouteplannerService{
 	
 	private final RouteplannerClient routeplannerClient;
 	
