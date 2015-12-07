@@ -8,51 +8,49 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Route {
-	
+
 	@XmlAttribute
 	private String name;
-	
+
 	@XmlAttribute
 	private Float distance;
-	
+
 	@XmlAttribute
 	private Float duration;
-	
+
 	@XmlElement(name = "IndicativePrice")
-	private IndicativePrice indicativePrice;	
-	
-	@XmlElements({
-		@XmlElement(name="CarSegment", type=CarSegment.class),
-		@XmlElement(name="WalkSegment",type=CarSegment.class),
-		@XmlElement(name="TransitSegment", type=TransitSegment.class),
-		@XmlElement(name="FlightSegment", type=FlightSegment.class)
-	})
+	private IndicativePrice indicativePrice;
+
+	@XmlElements({ @XmlElement(name = "CarSegment", type = CarSegment.class),
+			@XmlElement(name = "WalkSegment", type = CarSegment.class),
+			@XmlElement(name = "TransitSegment", type = TransitSegment.class),
+			@XmlElement(name = "FlightSegment", type = FlightSegment.class) })
 	private List<Segment> segments;
-		
+
 	public String getName() {
 		return name;
 	}
+
 	public Float getDistance() {
 		return distance;
 	}
-	
-	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
-	public Long getDuration() {		
-		return (duration <= 60 ? duration.longValue() : duration.longValue() * 60000 - 3600000);
+
+	public String getDurationString() {
+		int hours = (int) (duration / 60);
+		int minutes = (int) (duration % 60);
+		return String.format("%dhrs %02dmin", hours, minutes);
 	}
-	
+
 	public IndicativePrice getIndicativePrice() {
 		return indicativePrice;
 	}
-	
+
 	public List<Segment> getSegments() {
 		return segments;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,7 +60,7 @@ public class Route {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,5 +86,9 @@ public class Route {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}	
+	}
+
+	public Float getDuration() {
+		return duration;
+	}
 }

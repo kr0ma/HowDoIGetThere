@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 abstract class Segment {
 	
@@ -37,9 +35,10 @@ abstract class Segment {
 		return distance;
 	}
 	
-	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
-	public Long getDuration() {		
-		return (duration <= 60 ? duration.longValue() : duration.longValue() * 60000 - 3600000);
+	public String getDurationString() {
+		int hours = (int) (duration / 60);
+		int minutes = (int) (duration % 60);
+		return String.format("%dhrs %02dmin", hours, minutes);
 	}
 
 	public IndicativePrice getIndicativePrice() {
@@ -49,5 +48,9 @@ abstract class Segment {
 	public abstract String getOrigin();
 	
 	public abstract String getDestination();
+
+	public Float getDuration() {
+		return duration;
+	}
 	
 }

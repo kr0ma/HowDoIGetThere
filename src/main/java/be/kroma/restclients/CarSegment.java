@@ -4,8 +4,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CarSegment extends Segment{
 
@@ -32,9 +30,4 @@ public class CarSegment extends Segment{
 		return tName;
 	}
 	
-	@Override
-	@DateTimeFormat(style=("-S"), pattern="hh'hrs 'mm'min'")
-	public Long getDuration() {		
-		return super.getDuration();
-	}	
 }

@@ -84,7 +84,7 @@
 						<div class="alert alert-success center" role="alert">
 							<h3>
 								<strong>${route.name}</strong>(${route.distance}km -
-								<spring:eval expression='route.duration' />
+								${route.getDurationString()}
 								)
 							</h3>
 						</div>
@@ -99,7 +99,7 @@
 
 									<h4 class="list-group-item-heading">${segment.kind}
 										- ${segment.distance}km -
-										<spring:eval expression='segment.duration' />
+										${segment.getDurationString()}
 									</h4>
 									<p class="list-group-item-text">${segment.origin}-${segment.destination}</p>
 								</div>
