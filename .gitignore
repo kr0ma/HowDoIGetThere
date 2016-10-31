@@ -1,3 +1,12 @@
 /target/
-/.gitignore
-/HowDoIGetThere.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+.springBeans
+
+# Intellij
+.idea/
+*.iml
+*.iws
